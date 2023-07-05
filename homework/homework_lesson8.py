@@ -2,6 +2,7 @@ from collections import Counter
 import re
 import csv
 import json
+import string
 
 # TASK1
 print("TASK 1 \n")
@@ -17,10 +18,12 @@ with open("text_read_task_1.txt", "r") as text_file:
         print(*new_data[i])
     print("\n")
 
+    punctuation = string.punctuation
+
     for i in range(0, len(new_data)):
         for j in range(0, len(new_data[i])):
             new_data[i][j] = new_data[i][j].lower()
-            new_data[i][j] = re.sub(r'[.,!?\'\"]', '', new_data[i][j])
+            new_data[i][j] = new_data[i][j].translate(str.maketrans('', '', punctuation))
         words.append(Counter(new_data[i]).most_common(1))
         print(words[i])
 
@@ -121,15 +124,6 @@ with open("task_5.csv", encoding='utf-8') as r_file:
 print("TASK 6 \n")
 
 
-def go_on():
-
-    cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
-    if cont_exit == 'cont':
-        return True
-    else:
-        exit()
-
-
 def json_to_csv():
 
     with open("employees.json", "r") as json_file, open("employees.csv", mode="w", encoding='utf-8') as w_file:
@@ -139,13 +133,23 @@ def json_to_csv():
         names = ["name", "birthday", "height", "weight", "car", "languages"]
         file_writer = csv.DictWriter(w_file, delimiter=",", lineterminator="\r", fieldnames=names)
         print("1) The data has been read from JSON file and converted to CSV format")
-        go_on()
+        cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+        match cont_exit:
+            case 'cont':
+                pass
+            case 'exit':
+                exit()
 
         # 6.2 task
         file_writer.writeheader()
         file_writer.writerows(data)
         print("2) The data has been saved in CSV file")
-        go_on()
+        cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+        match cont_exit:
+            case 'cont':
+                pass
+            case 'exit':
+                exit()
 
 
 json_to_csv()
@@ -189,9 +193,19 @@ def add_to_json():
                 file_writer.writeheader()
                 file_writer.writerows(data)
                 print("4) The data has been added in CSV file")
-                go_on()
+                cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+                match cont_exit:
+                    case 'cont':
+                        pass
+                    case 'exit':
+                        exit()
         else:
-            go_on()
+            cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+            match cont_exit:
+                case 'cont':
+                    pass
+                case 'exit':
+                    exit()
 
 
 add_to_json()
@@ -216,7 +230,12 @@ def emp_name():
 
         counter += 1
 
-    go_on()
+    cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+    match cont_exit:
+        case 'cont':
+            pass
+        case 'exit':
+            exit()
 
 
 emp_name()
@@ -236,7 +255,12 @@ def lang():
             if employee_lang in row[5]:
                 print(f'{row[0]}')
 
-    go_on()
+    cont_exit = str(input("Would you like to continue or exit?: cont/exit "))
+    match cont_exit:
+        case 'cont':
+            pass
+        case 'exit':
+            exit()
 
 
 lang()
